@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="/Scripts/jquery-3.3.1.js"></script>
+</head>
+<body>
+    <input type="button" id="btn" value="Get All Users" />
+    <input type="button" id="btnClear" value="Clear" />
+    <div id="results"></div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var results = $('#results');
+
+            $('#btn').click(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: 'users/all',
+                    dataType: 'json',
+                    success: function (data) {
+
+                        results.empty();
+                        $.each(data, function (index, val) {
+                            var fullName = val.FirstName + ' ' + val.LastName;
+                            results.append('<li>' + fullName + '</li>')
+
+                        });
+                    }
+
+                });
+
+            });
+
+            $('#btnClear').click(function () {
+                results.empty();
+            });
+
+        });
+
+    </script>
+</body>
+</html>  

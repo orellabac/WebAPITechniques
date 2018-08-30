@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="/Scripts/jquery-3.3.1.js"></script>
+</head>
+<body>
+
+    <!--
+
+    https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api
+        -->
+
+    <button type="submit" name="sub" onclick="sendRequest()" class="page">Enviar </button>
+    <div id="results"></div>
+    <script>
+
+        function sendRequest() {
+            var results = $('#results');
+            $.ajax
+                ({
+                    type: "GET",
+                    url: "http://localhost:60281/api/values",
+                    /*xhrFields: {
+                        withCredentials: true
+                    },*/
+                    //username: username,
+                    //password: password,
+                    dataType: 'json',
+                    crossDomain: true,
+                    //beforeSend: function (xhr) {
+                    //    xhr.setRequestHeader("Authorization", "Basic " + btoa(username + ":" + password));
+                    //},
+                    async: false,
+                    success: function (data) {
+                        alert('Thanks for your comment!');
+
+                        results.empty();
+                        $.each(data, function (index, val) {
+                     
+                            results.append('<li>' + val + '</li>')
+
+                        });
+                    },
+                    error: function () {
+                        alert('error');
+                    }
+                });
+        }
+    </script>
+</body>
+</html>
